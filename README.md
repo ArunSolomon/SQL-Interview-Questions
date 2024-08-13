@@ -63,8 +63,11 @@ INSERT INTO employees (employee_id, first_name, last_name, department_id, salary
 <br>
 
 ## 1: Finding the MAX and MIN salary from the employees table
+
 <br>
+
 ### a. Finding the top 2 maximum salaries of each department❓
+
 <details><summary>
 :arrow_forward: View Answer
 </summary>
@@ -101,7 +104,9 @@ WHERE
 ```
 </details>
 <br>
+
 ### b. Finding the top 2 minimum salaries of each department❓
+
 <details><summary>
 :arrow_forward: View Answer
 </summary>
@@ -138,7 +143,9 @@ WHERE
 ```
 </details>
 <br>
+
 ### b. Finding the top 2 maximum and minimum salaries of each department❓
+
 <details><summary>
 :arrow_forward: View Answer
 </summary>
@@ -207,5 +214,4 @@ WHERE
   dr <= 2
 ```
 </details>
-<br>
 <br>
