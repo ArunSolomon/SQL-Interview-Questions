@@ -263,7 +263,7 @@ WHERE is_free = 1
 
 ### b. Identify the Top Performers Who Consistently Outperformed Their Peers❓
 
-#### Create the `cinema_seats` table 
+#### Create the `employee_performance` table 
 <details><summary>
 :arrow_forward: View Table SQL Query
 </summary>
