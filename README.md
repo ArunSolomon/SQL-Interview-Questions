@@ -144,7 +144,7 @@ WHERE
 </details>
 <br>
 
-### b. Finding the top 2 maximum and minimum salaries of each department❓
+### c. Finding the top 2 maximum and minimum salaries of each department❓
 
 <details><summary>
 :arrow_forward: View Answer
@@ -212,6 +212,106 @@ FROM
   min_salary 
 WHERE 
   dr <= 2
+```
+</details>
+<br>
+
+## 2: Interview Question: Using LEAD and LAG Functions 
+
+<br>
+
+### a. Identify Sequences of Available Seats in a Cinema Seating Arrangement❓
+
+#### Create the `cinema_seats` table 
+<details><summary>
+:arrow_forward: View Table SQL Query
+</summary>
+  
+```sql
+CREATE TABLE cinema_seats (
+    seat_id INT PRIMARY KEY,
+    is_free INT
+);
+
+INSERT INTO cinema_seats (seat_id, is_free) VALUES 
+(1, 1), (2, 0), (3, 1), (4, 0), 
+(5, 1), (6, 1), (7, 1), (8, 0), 
+(9, 1), (10, 1);
+```
+</details>
+
+<details><summary>
+:arrow_forward: View Answer
+</summary>
+
+```sql
+WITH seat_sequence AS (
+    SELECT 
+        seat_id, 
+        is_free,
+        LAG(is_free) OVER (ORDER BY seat_id) AS prev_seat_free,
+        LEAD(is_free) OVER (ORDER BY seat_id) AS next_seat_free
+    FROM cinema_seats
+)
+SELECT seat_id 
+FROM seat_sequence 
+WHERE is_free = 1 
+  AND (prev_seat_free = 1 OR next_seat_free = 1);
+```
+</details>
+<br>
+
+### b. Identify the Top Performers Who Consistently Outperformed Their Peers❓
+
+#### Create the `cinema_seats` table 
+<details><summary>
+:arrow_forward: View Table SQL Query
+</summary>
+  
+```sql
+CREATE TABLE employee_performance (
+    employee_id INT,
+    month DATE,
+    performance_score INT
+);
+
+INSERT INTO employee_performance (employee_id, month, performance_score) VALUES
+(1, '2024-01-01', 85),
+(1, '2024-02-01', 90),
+(1, '2024-03-01', 95),
+(1, '2024-04-01', 92),
+(2, '2024-01-01', 75),
+(2, '2024-02-01', 78),
+(2, '2024-03-01', 80),
+(2, '2024-04-01', 82);
+```
+</details>
+
+<details><summary>
+:arrow_forward: View Answer
+</summary>
+
+```sql
+WITH performance_ranking AS (
+    SELECT 
+        employee_id, 
+        month, 
+        performance_score,
+        LAG(performance_score) OVER (PARTITION BY employee_id ORDER BY month) AS prev_month_score,
+        LEAD(performance_score) OVER (PARTITION BY employee_id ORDER BY month) AS next_month_score
+    FROM employee_performance
+)
+SELECT 
+    employee_id, 
+    month, 
+    performance_score
+FROM 
+    performance_ranking
+WHERE 
+    performance_score > prev_month_score 
+    AND performance_score > next_month_score
+ORDER BY 
+    employee_id;
 ```
 </details>
 <br>
